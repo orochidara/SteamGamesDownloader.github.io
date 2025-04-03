@@ -54,7 +54,7 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam Logo" class="w-8 h-8">
                 <h1 class="text-xl font-bold">Steam Manager</h1>
             </div>
-
+            
             <div class="p-4 space-y-1 flex-grow">
                 <a href="#" id="nav-dashboard" class="sidebar-item flex items-center space-x-3 p-2 rounded-lg active">
                     <i class="fas fa-tachometer-alt w-6"></i>
@@ -78,7 +78,7 @@
                     <span>Compression</span>
                 </a>
             </div>
-
+            
             <div class="p-4 border-t border-gray-700">
                 <div class="flex items-center space-x-3">
                     <img src="https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg" alt="User" class="w-10 h-10 rounded-full">
@@ -89,19 +89,19 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Top Navigation -->
             <header class="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center">
                 <div><!-- Placeholder for potential future elements on the left --></div>
-
+                
                 <div class="flex items-center space-x-4">
                     <div class="relative">
                         <input type="text" placeholder="Search games..." class="bg-gray-700 rounded-full py-2 px-4 pl-10 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                     </div>
-
+                    
                     <div class="dropdown relative">
                         <button class="p-2 rounded-full hover:bg-gray-700 relative">
                             <i class="fas fa-bell"></i>
@@ -112,7 +112,7 @@
                             <a href="#" class="block px-4 py-2 hover:bg-gray-700">Download completed</a>
                         </div>
                     </div>
-
+                    
                     <div class="dropdown relative">
                         <button class="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
                             <img src="https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg" alt="User" class="w-8 h-8 rounded-full">
@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </header>
-
+            
             <!-- Main Content Area -->
             <main class="flex-1 overflow-y-auto p-6">
                 <!-- Dashboard Content -->
@@ -137,279 +137,353 @@
                         <button class="pb-1">Compressed</button>
                         <button class="pb-1">Updates</button>
                     </div>
-                    <!-- Dashboard Overview -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                        <div class="bg-gray-800 rounded-lg p-6 shadow">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h3 class="text-gray-400">Total Games</h3>
-                                    <p class="text-2xl font-bold">127</p>
-                                </div>
-                                <div class="p-3 rounded-full bg-blue-900 bg-opacity-50">
-                                    <i class="fas fa-gamepad text-blue-400"></i>
-                                </div>
+                <!-- Dashboard Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-gray-800 rounded-lg p-6 shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-gray-400">Total Games</h3>
+                                <p class="text-2xl font-bold">127</p>
                             </div>
-                        </div>
-
-                        <div class="bg-gray-800 rounded-lg p-6 shadow">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h3 class="text-gray-400">Disk Space</h3>
-                                    <p class="text-2xl font-bold">1.2TB <span class="text-sm text-gray-400">/ 2TB</span></p>
-                                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
-                                    </div>
-                                </div>
-                                <div class="p-3 rounded-full bg-green-900 bg-opacity-50">
-                                    <i class="fas fa-hdd text-green-400"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-gray-800 rounded-lg p-6 shadow">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h3 class="text-gray-400">Active Downloads</h3>
-                                    <p class="text-2xl font-bold">3</p>
-                                    <p class="text-sm text-gray-400">2.4MB/s</p>
-                                </div>
-                                <div class="p-3 rounded-full bg-purple-900 bg-opacity-50">
-                                    <i class="fas fa-cloud-download-alt text-purple-400"></i>
-                                </div>
+                            <div class="p-3 rounded-full bg-blue-900 bg-opacity-50">
+                                <i class="fas fa-gamepad text-blue-400"></i>
                             </div>
                         </div>
                     </div>
-                 </div>
-
-                <!-- Downloads Content -->
-                <div id="downloads-content" class="hidden">
-                    <!-- Download Queue -->
-                    <div class="bg-gray-800 rounded-lg shadow mb-6">
-                        <div class="p-4 border-b border-gray-700 flex justify-between items-center">
-                            <h2 class="text-lg font-semibold">Download Queue</h2>
-                            <div class="flex space-x-2">
-                                <button class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm flex items-center space-x-1">
-                                    <i class="fas fa-pause"></i>
-                                    <span>Pause All</span>
-                                </button>
-                                <button class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm flex items-center space-x-1">
-                                    <i class="fas fa-play"></i>
-                                    <span>Resume All</span>
-                                </button>
-                                <div class="relative">
-                                    <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
-                                        <option>Max Downloads: 3</option>
-                                        <option>Max Downloads: 2</option>
-                                        <option>Max Downloads: 1</option>
-                                    </select>
+                    
+                    <div class="bg-gray-800 rounded-lg p-6 shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-gray-400">Disk Space</h3>
+                                <p class="text-2xl font-bold">1.2TB <span class="text-sm text-gray-400">/ 2TB</span></p>
+                                <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
                                 </div>
+                            </div>
+                            <div class="p-3 rounded-full bg-green-900 bg-opacity-50">
+                                <i class="fas fa-hdd text-green-400"></i>
                             </div>
                         </div>
-
-                        <div class="divide-y divide-gray-700">
-                            <!-- Download Item 1 -->
-                            <div class="p-4 hover:bg-gray-750">
-                                <div class="flex items-center space-x-4">
-                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game" class="w-16 h-16 rounded">
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between">
-                                            <h3 class="font-medium">Counter-Strike 2</h3>
-                                            <div class="text-sm text-gray-400">2.4MB/s</div>
-                                        </div>
-                                        <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-                                            <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 45%"></div>
-                                        </div>
-                                        <div class="flex justify-between text-xs text-gray-400 mt-1">
-                                            <span>45% (12.4GB / 27.6GB)</span>
-                                            <span>ETA: 1h 24m</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-pause"></i>
-                                        </button>
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-arrow-up"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-lg p-6 shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-gray-400">Active Downloads</h3>
+                                <p class="text-2xl font-bold">3</p>
+                                <p class="text-sm text-gray-400">2.4MB/s</p>
                             </div>
-
-                            <!-- Download Item 2 -->
-                            <div class="p-4 hover:bg-gray-750">
-                                <div class="flex items-center space-x-4">
-                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/570/header.jpg" alt="Game" class="w-16 h-16 rounded">
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between">
-                                            <h3 class="font-medium">Dota 2</h3>
-                                            <div class="text-sm text-gray-400">1.8MB/s</div>
-                                        </div>
-                                        <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-                                            <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 78%"></div>
-                                        </div>
-                                        <div class="flex justify-between text-xs text-gray-400 mt-1">
-                                            <span>78% (21.8GB / 28GB)</span>
-                                            <span>ETA: 32m</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-pause"></i>
-                                        </button>
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-arrow-up"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Download Item 3 -->
-                            <div class="p-4 hover:bg-gray-750">
-                                <div class="flex items-center space-x-4">
-                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg" alt="Game" class="w-16 h-16 rounded">
-                                    <div class="flex-grow">
-                                        <div class="flex justify-between">
-                                            <h3 class="font-medium">PUBG: BATTLEGROUNDS</h3>
-                                            <div class="text-sm text-gray-400">3.1MB/s</div>
-                                        </div>
-                                        <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-                                            <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 12%"></div>
-                                        </div>
-                                        <div class="flex justify-between text-xs text-gray-400 mt-1">
-                                            <span>12% (4.8GB / 40GB)</span>
-                                            <span>ETA: 3h 12m</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-pause"></i>
-                                        </button>
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                        <button class="p-2 rounded-full hover:bg-gray-700">
-                                            <i class="fas fa-arrow-up"></i>
-                                        </button>
-                                    </div>
+                            <div class="p-3 rounded-full bg-purple-900 bg-opacity-50">
+                                <i class="fas fa-cloud-download-alt text-purple-400"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Downloads Content -->
+                <div id="downloads-content" class="hidden">
+                <!-- New Card for Starting Downloads -->
+                <div class="bg-gray-800 rounded-lg shadow mb-6 p-6">
+                    <h2 class="text-lg font-semibold mb-4 text-gray-300">Start New Download</h2>
+
+                    <!-- Game Input -->
+                    <div class="mb-4">
+                        <label for="game-input" class="block mb-2 text-sm font-medium text-gray-400">Game App ID or Steam URL</label>
+                        <input type="text" id="game-input" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="e.g., 730 or https://store.steampowered.com/app/730/" required>
+                    </div>
+
+                    <!-- Login Options -->
+                    <div class="mb-4">
+                         <div class="flex items-center mb-2">
+                             <input id="anonymous-login" type="checkbox" checked class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2">
+                             <label for="anonymous-login" class="ml-2 text-sm font-medium text-gray-300">Login Anonymously (Recommended)</label>
+                         </div>
+                         <!-- Username/Password Section (Initially Hidden) -->
+                         <div id="credentials-section" class="hidden space-y-2 pl-6 border-l-2 border-gray-700 ml-2 pt-2">
+                             <p class="text-xs text-amber-400">Warning: Non-anonymous login may fail due to Steam Guard in Colab.</p>
+                             <div>
+                                 <label for="steam-username" class="block mb-1 text-xs font-medium text-gray-400">Steam Username</label>
+                                 <input type="text" id="steam-username" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your Steam Username">
+                             </div>
+                             <div>
+                                 <label for="steam-password" class="block mb-1 text-xs font-medium text-gray-400">Steam Password</label>
+                                 <input type="password" id="steam-password" class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your Steam Password">
+                             </div>
+                         </div>
+                    </div>
+
+                    <!-- Start Button -->
+                    <button id="start-download-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                        <i class="fas fa-download mr-2"></i>
+                        <span>Start Download</span>
+                    </button>
+                </div>
+
+                <!-- Download Queue -->
+                <div class="bg-gray-800 rounded-lg shadow mb-6">
+                    <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold">Download Queue</h2>
+                        <div class="flex space-x-2">
+                            <button class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm flex items-center space-x-1">
+                                <i class="fas fa-pause"></i>
+                                <span>Pause All</span>
+                            </button>
+                            <button class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm flex items-center space-x-1">
+                                <i class="fas fa-play"></i>
+                                <span>Resume All</span>
+                            </button>
+                            <div class="relative">
+                                <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
+                                    <option>Max Downloads: 3</option>
+                                    <option>Max Downloads: 2</option>
+                                    <option>Max Downloads: 1</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="divide-y divide-gray-700">
+                        <!-- Download Item 1 -->
+                        <div class="p-4 hover:bg-gray-750">
+                            <div class="flex items-center space-x-4">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game" class="w-16 h-16 rounded">
+                                <div class="flex-grow">
+                                    <div class="flex justify-between">
+                                        <h3 class="font-medium">Counter-Strike 2</h3>
+                                        <div class="text-sm text-gray-400">2.4MB/s</div>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                        <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 45%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                        <span>45% (12.4GB / 27.6GB)</span>
+                                        <span>ETA: 1h 24m</span>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-pause"></i>
+                                    </button>
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Download Item 2 -->
+                        <div class="p-4 hover:bg-gray-750">
+                            <div class="flex items-center space-x-4">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/570/header.jpg" alt="Game" class="w-16 h-16 rounded">
+                                <div class="flex-grow">
+                                    <div class="flex justify-between">
+                                        <h3 class="font-medium">Dota 2</h3>
+                                        <div class="text-sm text-gray-400">1.8MB/s</div>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                        <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 78%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                        <span>78% (21.8GB / 28GB)</span>
+                                        <span>ETA: 32m</span>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-pause"></i>
+                                    </button>
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Download Item 3 -->
+                        <div class="p-4 hover:bg-gray-750">
+                            <div class="flex items-center space-x-4">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg" alt="Game" class="w-16 h-16 rounded">
+                                <div class="flex-grow">
+                                    <div class="flex justify-between">
+                                        <h3 class="font-medium">PUBG: BATTLEGROUNDS</h3>
+                                        <div class="text-sm text-gray-400">3.1MB/s</div>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                        <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 12%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                        <span>12% (4.8GB / 40GB)</span>
+                                        <span>ETA: 3h 12m</span>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-pause"></i>
+                                    </button>
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="p-2 rounded-full hover:bg-gray-700">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                    <!-- Backend Status Display Area -->
+                    <div class="mt-6 p-4 bg-gray-800 rounded-lg shadow">
+                        <h3 class="text-lg font-semibold mb-3 text-gray-300">Current Operation Status</h3>
+                        <!-- Status Text -->
+                        <p id="status-text" class="text-gray-400 mb-2" style="display: none;">Status: Idle</p>
+
+                        <!-- Progress Bar -->
+                        <div id="progress-container" class="mb-2" style="display: none;">
+                             <div class="flex justify-between text-sm text-gray-400 mb-1">
+                                 <span id="progress-bar-text">0%</span>
+                                 <span id="progress-details"></span>
+                             </div>
+                             <div class="w-full bg-gray-700 rounded-full h-2.5 dark:bg-gray-700">
+                                 <div id="progress-bar-fill" class="bg-blue-600 h-2.5 rounded-full transition-width duration-300 ease-linear" style="width: 0%"></div>
+                             </div>
+                             <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span id="elapsed-time">Elapsed: 00:00</span>
+                                <span id="eta-text">ETA: --:--</span>
+                             </div>
+                        </div>
+
+                        <!-- File List -->
+                        <div id="file-list-container" class="mt-3">
+                            <h4 class="text-md font-semibold mb-1 text-gray-400">Output Files:</h4>
+                            <div id="file-list" class="text-sm">
+                                <!-- Download links will appear here -->
+                                <p class="text-gray-500">No files generated yet.</p>
+                            </div>
+                        </div>
+
+                        <!-- Cancel Button -->
+                         <button id="cancel-download-button" class="mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex items-center" style="display: none;">
+                             <i class="fas fa-times mr-2"></i>
+                             <span>Cancel Operation</span>
+                         </button>
+                    </div>
+                </div>
 
                 <!-- Library Content -->
                 <div id="library-content" class="hidden">
-                    <!-- Game Library -->
-                    <div class="bg-gray-800 rounded-lg shadow">
-                        <div class="p-4 border-b border-gray-700 flex justify-between items-center">
-                            <h2 class="text-lg font-semibold">Game Library</h2>
-                            <div class="flex space-x-2">
-                                <div class="relative">
-                                    <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
-                                        <option>Sort by: Recently Played</option>
-                                        <option>Sort by: Name</option>
-                                        <option>Sort by: Size</option>
-                                        <option>Sort by: Last Updated</option>
-                                    </select>
+                <!-- Game Library -->
+                <div class="bg-gray-800 rounded-lg shadow">
+                    <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold">Game Library</h2>
+                        <div class="flex space-x-2">
+                            <div class="relative">
+                                <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
+                                    <option>Sort by: Recently Played</option>
+                                    <option>Sort by: Name</option>
+                                    <option>Sort by: Size</option>
+                                    <option>Sort by: Last Updated</option>
+                                </select>
+                            </div>
+                            <div class="relative">
+                                <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
+                                    <option>Filter: All Games</option>
+                                    <option>Filter: Installed</option>
+                                    <option>Filter: Compressed</option>
+                                    <option>Filter: Needs Update</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+                        <!-- Game Card 1 -->
+                        <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" alt="Game" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-medium mb-2">The Witcher 3: Wild Hunt</h3>
+                                <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                    <span>45.6GB</span>
+                                    <span>Compressed</span>
                                 </div>
-                                <div class="relative">
-                                    <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
-                                        <option>Filter: All Games</option>
-                                        <option>Filter: Installed</option>
-                                        <option>Filter: Compressed</option>
-                                        <option>Filter: Needs Update</option>
-                                    </select>
+                                <div class="flex space-x-2">
+                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
+                                        <i class="fas fa-play mr-1"></i> Play
+                                    </button>
+                                    <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
-                            <!-- Game Card 1 -->
-                            <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
-                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" alt="Game" class="w-full h-40 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-medium mb-2">The Witcher 3: Wild Hunt</h3>
-                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                        <span>45.6GB</span>
-                                        <span>Compressed</span>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
-                                            <i class="fas fa-play mr-1"></i> Play
-                                        </button>
-                                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </button>
-                                    </div>
+                        
+                        <!-- Game Card 2 -->
+                        <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg" alt="Game" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-medium mb-2">Red Dead Redemption 2</h3>
+                                <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                    <span>120GB</span>
+                                    <span>Installed</span>
                                 </div>
-                            </div>
-
-                            <!-- Game Card 2 -->
-                            <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
-                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg" alt="Game" class="w-full h-40 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-medium mb-2">Red Dead Redemption 2</h3>
-                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                        <span>120GB</span>
-                                        <span>Installed</span>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
-                                            <i class="fas fa-play mr-1"></i> Play
-                                        </button>
-                                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Game Card 3 -->
-                            <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
-                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg" alt="Game" class="w-full h-40 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-medium mb-2">Baldur's Gate 3</h3>
-                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                        <span>85GB</span>
-                                        <span>Update Available</span>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
-                                            <i class="fas fa-download mr-1"></i> Update
-                                        </button>
-                                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Game Card 4 -->
-                            <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
-                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg" alt="Game" class="w-full h-40 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-medium mb-2">ELDEN RING</h3>
-                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                        <span>50GB</span>
-                                        <span>Not Installed</span>
-                                    </div>
-                                    <div class="flex space-x-2">
-                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
-                                            <i class="fas fa-download mr-1"></i> Install
-                                        </button>
-                                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </button>
-                                    </div>
+                                <div class="flex space-x-2">
+                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
+                                        <i class="fas fa-play mr-1"></i> Play
+                                    </button>
+                                    <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Game Card 3 -->
+                        <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg" alt="Game" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-medium mb-2">Baldur's Gate 3</h3>
+                                <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                    <span>85GB</span>
+                                    <span>Update Available</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
+                                        <i class="fas fa-download mr-1"></i> Update
+                                    </button>
+                                    <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Game Card 4 -->
+                        <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg" alt="Game" class="w-full h-40 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-medium mb-2">ELDEN RING</h3>
+                                <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                    <span>50GB</span>
+                                    <span>Not Installed</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
+                                        <i class="fas fa-download mr-1"></i> Install
+                                    </button>
+                                    <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
                  <!-- Placeholder for Settings Content -->
@@ -421,13 +495,18 @@
                  <div id="compression-content" class="hidden">
                      <h2 class="text-xl font-semibold mb-4">Compression</h2>
                     <p>Compression management content goes here...</p>
-                 </div>
+                </div>
             </main>
         </div>
     </div>
 
     <script>
-        // Sidebar Navigation Logic
+        // --- CONFIGURATION ---
+        // PASTE YOUR NGROK URL FROM COLAB OUTPUT HERE (including https://)
+        const BACKEND_BASE_URL = "https://free-growing-raven.ngrok-free.app"; // <<< UPDATED HERE!
+
+        // --- DOM Element References ---
+        // Sidebar links (Ensure these IDs match your HTML)
         const sidebarLinks = document.querySelectorAll('.sidebar-item');
         const contentSections = {
             'nav-dashboard': document.getElementById('dashboard-content'),
@@ -437,103 +516,324 @@
             'nav-compression': document.getElementById('compression-content'),
         };
 
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent default anchor behavior
+        // Download Control Elements (Ensure these IDs match your HTML)
+        // Assuming you have inputs with these IDs somewhere accessible when the 'Downloads' tab is shown
+        const gameInput = document.getElementById('game-input'); // Example ID, add to your input
+        const anonymousCheckbox = document.getElementById('anonymous-login'); // Example ID, add to your checkbox
+        const usernameInput = document.getElementById('steam-username'); // Example ID, add to your input
+        const passwordInput = document.getElementById('steam-password'); // Example ID, add to your input
+        const startDownloadButton = document.getElementById('start-download-button'); // Example ID, add to your trigger button
 
-                // Deactivate all links
-                sidebarLinks.forEach(l => l.classList.remove('active'));
-                // Hide all content sections
-                Object.values(contentSections).forEach(section => section.classList.add('hidden'));
+        // Status Display Elements (Ensure these IDs match the placeholders added above)
+        const statusText = document.getElementById('status-text');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBarFill = document.getElementById('progress-bar-fill');
+        const progressBarText = document.getElementById('progress-bar-text');
+        const progressDetailsText = document.getElementById('progress-details');
+        const elapsedTimeText = document.getElementById('elapsed-time');
+        const etaText = document.getElementById('eta-text');
+        const fileListContainer = document.getElementById('file-list');
+        const cancelDownloadButton = document.getElementById('cancel-download-button');
 
-                // Activate the clicked link
-                link.classList.add('active');
+        let statusInterval = null; // To hold the interval ID for polling
 
-                // Show the target content section
-                const targetId = link.id;
-                if (contentSections[targetId]) {
-                    contentSections[targetId].classList.remove('hidden');
+        // --- API Call Function ---
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            if (!BACKEND_BASE_URL || BACKEND_BASE_URL === "free-growing-raven.ngrok-free.app") {
+                console.error("Backend URL not set!");
+                updateStatusDisplay({ status: "error", error_message: "Backend URL not configured in index2.html script." });
+                throw new Error("Backend URL missing.");
+            }
+            const url = `${BACKEND_BASE_URL}${endpoint}`;
+            const options = {
+                method: method,
+                headers: {
+                     // No Content-Type header needed for GET/HEAD
+                },
+                // Add mode: 'cors' if needed, though Flask-CORS should handle preflights
+            };
+            if (body) {
+                 options.headers['Content-Type'] = 'application/json';
+                 options.body = JSON.stringify(body);
+            }
+
+            try {
+                console.log(`API Call: ${method} ${url}`, body || '');
+                const response = await fetch(url, options);
+
+                // Check for non-JSON responses first (like file downloads, maybe errors)
+                const contentType = response.headers.get("content-type");
+                if (!response.ok) {
+                    let errorData = { error: `HTTP error! status: ${response.status} ${response.statusText}` };
+                    try {
+                        // Try to parse JSON error even if content-type isn't set correctly
+                        if (contentType && contentType.includes("application/json")) {
+                             errorData = await response.json();
+                        } else {
+                             // Otherwise get text response
+                             const textError = await response.text();
+                             errorData.error = textError || errorData.error; // Use text error if available
+                        }
+                    } catch (e) { /* Ignore parsing error, use default */ }
+                    console.error("API Error Response:", errorData);
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
                 }
 
-                 // Optional: Update header based on active section (e.g., change title or tabs)
-                 // Example: document.querySelector('header h2').textContent = link.querySelector('span').textContent;
+                // Handle successful file downloads or other non-JSON success
+                if (response.ok && (!contentType || !contentType.includes("application/json"))) {
+                     console.log(`API Success: Received non-JSON response (status ${response.status})`);
+                     // If it was a file download endpoint, the browser handles it via `send_from_directory`
+                     // Otherwise, just return a success indicator
+                     return { success: true, status: response.status };
+                }
+
+                // Process successful JSON response
+                const data = await response.json();
+                console.log("API Success Response:", data);
+                return data;
+
+            } catch (error) {
+                console.error(`API Fetch Error (${endpoint}):`, error);
+                // Update UI to show a generic connection error only if specific error not already shown
+                if (statusText && !statusText.textContent.startsWith("Error:")) {
+                     updateStatusDisplay({ status: "error", error_message: `API connection failed: ${error.message}` });
+                }
+                throw error; // Re-throw for callers to handle if needed
+            }
+        }
+
+        // --- UI Update Function ---
+        function updateStatusDisplay(data) {
+            // Update Status Text
+            if (statusText) {
+                let message = `Status: ${data.status || 'Unknown'}`;
+                let messageColor = '#9ca3af'; // Default gray-400
+
+                if (data.status === 'error') {
+                    message = `Error: ${data.error_message || 'Unknown error'}`;
+                    messageColor = '#f87171'; // Red-400
+                } else if (data.status === 'completed') {
+                    message = `Status: ${data.progress_details || 'Completed'}`;
+                    messageColor = '#34d399'; // Green-400
+                } else if (data.status === 'completed_uncompressed') {
+                     message = `Status: ${data.progress_details || 'Download complete (Uncompressed)'}`;
+                     messageColor = '#34d399'; // Green-400
+                } else if (data.status === 'cancelled') {
+                    message = 'Status: Operation Cancelled';
+                    messageColor = '#fbbf24'; // Amber-400
+                } else if (data.status === 'starting') {
+                    message = 'Status: Initiating...';
+                } else if (data.status === 'downloading' || data.status === 'compressing' || data.status === 'cleaning') {
+                     message = `Status: ${data.progress_details || data.status}`;
+                }
+                 statusText.textContent = message;
+                 statusText.style.color = messageColor;
+                 statusText.style.display = 'block';
+            }
+
+            // Update Progress Bar visibility and values
+            const showProgress = ['downloading', 'compressing', 'cleaning'].includes(data.status);
+            if (progressContainer) progressContainer.style.display = showProgress ? 'block' : 'none';
+
+            if(showProgress) {
+                const percent = data.progress_percent || 0;
+                if (progressBarFill) progressBarFill.style.width = `${percent}%`;
+                if (progressBarText) progressBarText.textContent = `${Math.round(percent)}%`;
+                if (progressDetailsText) progressDetailsText.textContent = data.progress_details || '';
+                if (elapsedTimeText) elapsedTimeText.textContent = `Elapsed: ${data.elapsed || '00:00'}`;
+                if (etaText) etaText.textContent = `ETA: ${data.eta || '--:--'}`;
+            }
+
+            // Show/Hide Cancel Button
+            const showCancel = ['downloading', 'compressing', 'cleaning', 'cancelling'].includes(data.status);
+            if (cancelDownloadButton) {
+                 cancelDownloadButton.style.display = showCancel ? 'inline-flex' : 'none';
+                 cancelDownloadButton.disabled = (data.status === 'cancelling'); // Disable if cancelling
+                 cancelDownloadButton.querySelector('span').textContent = (data.status === 'cancelling') ? "Cancelling..." : "Cancel Operation";
+            }
+            // Disable start button if an operation is running or cancelling
+            if (startDownloadButton) startDownloadButton.disabled = showCancel;
+
+            // Update File List
+            if (fileListContainer) {
+                fileListContainer.innerHTML = ''; // Clear previous list
+                if (data.files && data.files.length > 0 && (data.status === 'completed' || data.status === 'cancelled' || data.status === 'error')) { // Show files on completion, cancel, or error if they exist
+                    const list = document.createElement('ul');
+                    list.className = 'list-none pl-0 space-y-1 mt-1'; // Styling
+                    data.files.forEach(filename => {
+                        const item = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = `${BACKEND_BASE_URL}/api/files/${encodeURIComponent(filename)}`;
+                        link.innerHTML = `<i class="fas fa-file-archive mr-2 text-blue-400"></i>${filename}`; // Add icon
+                        link.className = 'text-blue-400 hover:text-blue-300 hover:underline inline-flex items-center';
+                        item.appendChild(link);
+                        list.appendChild(item);
+                    });
+                    fileListContainer.appendChild(list);
+                } else if (data.status === 'completed_uncompressed') {
+                     fileListContainer.innerHTML = '<p class="text-gray-500">Download complete (Compression Disabled).</p>';
+                } else if (data.status === 'completed') {
+                     fileListContainer.innerHTML = '<p class="text-gray-500">Operation completed, but no files were found.</p>';
+                } else if (!showCancel && data.status !== 'idle') { // If not running and not idle (e.g. error/cancelled without files)
+                     fileListContainer.innerHTML = '<p class="text-gray-500">No files generated.</p>';
+                } else if (data.status !== 'idle') { // Still running
+                     fileListContainer.innerHTML = '<p class="text-gray-500">Files will appear here upon completion...</p>';
+                } else {
+                     fileListContainer.innerHTML = '<p class="text-gray-500">No files generated yet.</p>'; // Default idle
+                }
+            }
+        }
+
+        // --- Event Listeners ---
+        if (startDownloadButton) {
+            startDownloadButton.addEventListener('click', async () => {
+                console.log("Start Download clicked");
+                const gameIdOrUrl = gameInput ? gameInput.value : null;
+                const isAnonymous = anonymousCheckbox ? anonymousCheckbox.checked : true;
+                const user = usernameInput ? usernameInput.value : null;
+                const pass = passwordInput ? passwordInput.value : null;
+
+                // Basic input validation
+                if (!gameIdOrUrl) {
+                    alert("Please enter a Game App ID or Steam Store URL.");
+                    return;
+                }
+                if (!isAnonymous && (!user || !pass)) {
+                    alert("Please enter Steam Username and Password for non-anonymous login.");
+                    return;
+                }
+
+                startDownloadButton.disabled = true; // Disable button immediately
+                updateStatusDisplay({ status: "starting", progress_details: "Initiating..." }); // Initial UI feedback
+
+                try {
+                    const result = await apiCall('/api/start_download', 'POST', {
+                        game_input: gameIdOrUrl,
+                        anonymous: isAnonymous,
+                        username: isAnonymous ? null : user,
+                        password: isAnonymous ? null : pass,
+                    });
+                    // If start API call is successful, start polling for status
+                    startStatusPolling();
+                } catch (error) {
+                    // Error display is handled within apiCall's catch block
+                    updateStatusDisplay({ status: "error", error_message: error.message || "Failed to start download." });
+                    startDownloadButton.disabled = false; // Re-enable button on failure to start
+                }
             });
-        });
+        } else {
+             console.warn("Start Download Button not found (id='start-download-button')");
+        }
 
-        // Top Navigation Tab switching functionality (currently just styles the buttons)
-        // This might be used for filtering within a section later.
-        document.querySelectorAll('.tabs button').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.tabs button').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                 // Add logic here later to filter content based on the selected tab (e.g., filter game library)
-            });
-        });
-
-        // Simulate download progress
-        function simulateDownload() {
-            const bars = document.querySelectorAll('.progress-bar');
-            bars.forEach(bar => {
-                // Ensure the bar is visible before trying to update width
-                const downloadItem = bar.closest('.p-4');
-                if (downloadItem && window.getComputedStyle(downloadItem).display !== 'none') {
-                     const currentWidth = parseFloat(bar.style.width) || 0;
-                     if (currentWidth < 100) {
-                        // Make progress random but generally increasing
-                        let increment = Math.random() * 2;
-                        // Occasionally pause or slow down
-                         if (Math.random() < 0.1) increment = 0;
-                         if (Math.random() < 0.2) increment /= 5;
-
-                        let newWidth = Math.min(currentWidth + increment, 100);
-                        bar.style.width = newWidth + '%';
-
-                        // Update percentage text (example - needs actual data binding)
-                        const percentageSpan = bar.parentElement.nextElementSibling.querySelector('span:first-child');
-                        if (percentageSpan) {
-                             // This is just a visual approximation based on width
-                            const totalSizeGB = parseFloat(percentageSpan.textContent.match(/.*\/ ([\d.]+)GB/)?.[1] || '1');
-                            const currentSizeGB = (totalSizeGB * (newWidth / 100)).toFixed(1);
-                            percentageSpan.textContent = `${Math.round(newWidth)}% (${currentSizeGB}GB / ${totalSizeGB}GB)`;
-                        }
-                        // Update ETA (example - needs real calculation)
-                        const etaSpan = bar.parentElement.nextElementSibling.querySelector('span:last-child');
-                         if (etaSpan && currentWidth < 99) { // Don't update ETA if almost done
-                            // Simplified ETA calculation
-                            const remainingPercent = 100 - newWidth;
-                            if (increment > 0.1) { // Only update if progressing reasonably
-                                 const secondsRemaining = Math.max(5, Math.round(remainingPercent / (increment / 2))); // 2 seconds per increment approx
-                                 const minutes = Math.floor(secondsRemaining / 60);
-                                const hours = Math.floor(minutes / 60);
-                                const displayMinutes = minutes % 60;
-                                 if (hours > 0) {
-                                     etaSpan.textContent = `ETA: ${hours}h ${displayMinutes}m`;
-                                 } else if (minutes > 0) {
-                                    etaSpan.textContent = `ETA: ${minutes}m`;
-                                } else {
-                                     etaSpan.textContent = `ETA: <1m`;
-                                 }
-                            } else if (increment === 0 && currentWidth > 0) {
-                                 etaSpan.textContent = `ETA: Paused`;
-                             }
-                        } else if (etaSpan && currentWidth >= 99) {
-                             etaSpan.textContent = `ETA: Finishing...`;
-                         }
-                     } else {
-                         // Handle completion - maybe change style or text
-                         const etaSpan = bar.parentElement.nextElementSibling.querySelector('span:last-child');
-                         if (etaSpan) etaSpan.textContent = 'Completed';
-                         bar.classList.remove('bg-blue-500');
-                         bar.classList.add('bg-green-500'); // Change to green on completion
-                    }
+        if (cancelDownloadButton) {
+            cancelDownloadButton.addEventListener('click', async () => {
+                console.log("Cancel clicked");
+                cancelDownloadButton.disabled = true; // Prevent double clicks
+                cancelDownloadButton.querySelector('span').textContent = "Cancelling...";
+                try {
+                    await apiCall('/api/cancel', 'POST');
+                    // Status polling will eventually reflect the 'cancelled' state
+                    // Force an immediate status update for quicker feedback if desired
+                    updateStatusDisplay({ status: "cancelling", progress_details: "Cancellation requested..." });
+                } catch (error) {
+                    // Error display handled in apiCall
+                    cancelDownloadButton.disabled = false; // Re-enable if cancel API call failed
+                    cancelDownloadButton.querySelector('span').textContent = "Cancel Operation";
+                    // Update status to show cancel failed
+                    updateStatusDisplay({ status: "error", error_message: `Failed to send cancel signal: ${error.message}` });
                 }
             });
         }
+        
+        // --- Status Polling Functions ---
+        function pollStatus() {
+            apiCall('/api/status', 'GET')
+                .then(data => {
+                    if (data) { // Ensure data was received
+                        updateStatusDisplay(data);
+                        // Stop polling if process is in a final state
+                        if (['completed', 'completed_uncompressed', 'cancelled', 'error', 'idle'].includes(data.status)) {
+                            stopStatusPolling();
+                            if (startDownloadButton) startDownloadButton.disabled = false; // Re-enable download button
+                            if (cancelDownloadButton) cancelDownloadButton.style.display = 'none';
+                        }
+                    } else {
+                         // Handle cases where apiCall might return undefined/null on non-JSON success (shouldn't happen for GET /api/status)
+                         console.warn("Poll Status received undefined data.");
+                    }
+                })
+                .catch(error => {
+                     console.error("Status poll failed:", error);
+                     // Update UI to show polling failed, maybe stop polling after N errors
+                     // statusText.textContent = "Error: Could not retrieve status from backend.";
+                     // statusText.style.color = '#f87171';
+                     // stopStatusPolling(); // Optional: stop polling on error
+                });
+        }
 
-        setInterval(simulateDownload, 2000); // Keep interval at 2 seconds
+        function startStatusPolling() {
+            stopStatusPolling(); // Clear any existing interval
+            console.log("Starting status polling.");
+            // Poll immediately for quick feedback, then set interval
+            setTimeout(pollStatus, 100); // Poll almost immediately
+            statusInterval = setInterval(pollStatus, 3000); // Poll every 3 seconds
+        }
 
-        // Dropdown menu toggle for mobile (would need more implementation)
-        // Currently works on hover for desktop
+        function stopStatusPolling() {
+            if (statusInterval) {
+                console.log("Stopping status polling.");
+                clearInterval(statusInterval);
+                statusInterval = null;
+            }
+        }
+
+        // --- Sidebar Navigation (Copy from your previous working version) ---
+         sidebarLinks.forEach(link => {
+             link.addEventListener('click', (event) => {
+                 event.preventDefault(); // Prevent default anchor behavior
+
+                 // Deactivate all links
+                 sidebarLinks.forEach(l => l.classList.remove('active'));
+                 // Hide all content sections
+                 Object.values(contentSections).forEach(section => {
+                      if (section) section.classList.add('hidden');
+                 });
+
+                 // Activate the clicked link
+                 link.classList.add('active');
+
+                 // Show the target content section
+                 const targetId = link.id;
+                 if (contentSections[targetId]) {
+                     contentSections[targetId].classList.remove('hidden');
+                 }
+             });
+         });
+
+        // --- Initial Page Load ---
+        // Hide cancel button initially
+        if (cancelDownloadButton) cancelDownloadButton.style.display = 'none';
+        // Set initial status text
+        if(statusText) { statusText.textContent = "Status: Idle"; statusText.style.display = 'block'; }
+        // Hide progress bar initially
+        if(progressContainer) progressContainer.style.display = 'none';
+        // Poll status once on load to check if backend is already running something (useful for dev)
+        // setTimeout(pollStatus, 500); // Poll after 0.5s delay
+
+        console.log("Frontend JS Initialized. Waiting for user action.");
+
+        // Add this small script snippet *inside* the main <script> tag
+        // at the bottom of your file to handle showing/hiding credentials
+        const anonCheckbox = document.getElementById('anonymous-login');
+        const credsSection = document.getElementById('credentials-section');
+        if (anonCheckbox && credsSection) {
+            anonCheckbox.addEventListener('change', () => {
+                credsSection.style.display = anonCheckbox.checked ? 'none' : 'block';
+            });
+            // Initial state
+            credsSection.style.display = anonCheckbox.checked ? 'none' : 'block';
+        }
+
     </script>
 </body>
 </html>
