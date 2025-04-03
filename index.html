@@ -243,99 +243,8 @@
                         </div>
                     </div>
                     
-                    <div class="divide-y divide-gray-700">
-                        <!-- Download Item 1 -->
-                        <div class="p-4 hover:bg-gray-750">
-                            <div class="flex items-center space-x-4">
-                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game" class="w-16 h-16 rounded">
-                                <div class="flex-grow">
-                                    <div class="flex justify-between">
-                                        <h3 class="font-medium">Counter-Strike 2</h3>
-                                        <div class="text-sm text-gray-400">2.4MB/s</div>
-                                    </div>
-                                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-                                        <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 45%"></div>
-                                    </div>
-                                    <div class="flex justify-between text-xs text-gray-400 mt-1">
-                                        <span>45% (12.4GB / 27.6GB)</span>
-                                        <span>ETA: 1h 24m</span>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-pause"></i>
-                                    </button>
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-arrow-up"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Download Item 2 -->
-                        <div class="p-4 hover:bg-gray-750">
-                            <div class="flex items-center space-x-4">
-                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/570/header.jpg" alt="Game" class="w-16 h-16 rounded">
-                                <div class="flex-grow">
-                                    <div class="flex justify-between">
-                                        <h3 class="font-medium">Dota 2</h3>
-                                        <div class="text-sm text-gray-400">1.8MB/s</div>
-                                    </div>
-                                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-                                        <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 78%"></div>
-                                    </div>
-                                    <div class="flex justify-between text-xs text-gray-400 mt-1">
-                                        <span>78% (21.8GB / 28GB)</span>
-                                        <span>ETA: 32m</span>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-pause"></i>
-                                    </button>
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-arrow-up"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Download Item 3 -->
-                        <div class="p-4 hover:bg-gray-750">
-                            <div class="flex items-center space-x-4">
-                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg" alt="Game" class="w-16 h-16 rounded">
-                                <div class="flex-grow">
-                                    <div class="flex justify-between">
-                                        <h3 class="font-medium">PUBG: BATTLEGROUNDS</h3>
-                                        <div class="text-sm text-gray-400">3.1MB/s</div>
-                                    </div>
-                                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
-                                        <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 12%"></div>
-                                    </div>
-                                    <div class="flex justify-between text-xs text-gray-400 mt-1">
-                                        <span>12% (4.8GB / 40GB)</span>
-                                        <span>ETA: 3h 12m</span>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-pause"></i>
-                                    </button>
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="p-2 rounded-full hover:bg-gray-700">
-                                        <i class="fas fa-arrow-up"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="divide-y divide-gray-700" id="download-queue-list">
+                        <!-- Download items will be dynamically inserted here -->
                     </div>
                 </div>
                 
@@ -653,6 +562,81 @@
             }
             // Disable start button if an operation is running or cancelling
             if (startDownloadButton) startDownloadButton.disabled = showCancel;
+
+            // Update Download Queue Section (NEW LOGIC)
+            const downloadQueueList = document.getElementById('download-queue-list');
+            if (downloadQueueList) {
+                downloadQueueList.innerHTML = ''; // Clear previous items
+                const isActive = ['starting', 'downloading', 'compressing', 'cleaning', 'cancelling'].includes(data.status);
+                const isFinished = ['completed', 'completed_uncompressed', 'error', 'cancelled'].includes(data.status);
+                const appId = data.app_id;
+
+                if ((isActive || isFinished) && appId) {
+                    // Try to get game name (placeholder for now, needs API enhancement)
+                    let gameName = `App ID: ${appId}`;
+                    // TODO: Enhance backend /api/status to include game name
+                    // Maybe use a generic header image or one based on status
+                    let imageUrl = 'https://via.placeholder.com/64/1a1a2e/ffffff?text=Game';
+                    let detailsText = data.progress_details || data.status;
+                    let progressPercent = data.progress_percent || 0;
+                    let etaText = data.eta || '--:--';
+                    let elapsedText = data.elapsed || '00:00';
+                    let statusIconClass = 'fas fa-spinner fa-spin'; // Default: spinning
+                    let statusColor = 'text-blue-400';
+
+                    if (data.status === 'downloading') {
+                        statusIconClass = 'fas fa-cloud-download-alt';
+                    } else if (data.status === 'compressing') {
+                        statusIconClass = 'fas fa-file-archive'; // Or 'fa-box-open'
+                    } else if (data.status === 'cleaning') {
+                        statusIconClass = 'fas fa-broom';
+                    } else if (data.status === 'cancelling') {
+                        statusIconClass = 'fas fa-stop-circle';
+                        statusColor = 'text-amber-400';
+                    } else if (data.status === 'completed' || data.status === 'completed_uncompressed') {
+                        statusIconClass = 'fas fa-check-circle';
+                        statusColor = 'text-green-400';
+                        detailsText = data.files && data.files.length > 0 ? `Completed (${data.files.length} file(s))` : 'Completed';
+                        progressPercent = 100;
+                        etaText = 'Done';
+                    } else if (data.status === 'error') {
+                        statusIconClass = 'fas fa-exclamation-triangle';
+                        statusColor = 'text-red-400';
+                        detailsText = `Error: ${data.error_message || 'Unknown'}`;
+                    } else if (data.status === 'cancelled') {
+                        statusIconClass = 'fas fa-ban';
+                        statusColor = 'text-amber-400';
+                        detailsText = 'Cancelled';
+                    }
+
+                    const itemHtml = `
+                        <div class="p-4 bg-gray-800 rounded-lg mb-4 border border-gray-700">
+                            <div class="flex items-center space-x-4">
+                                <img src="${imageUrl}" alt="Game" class="w-16 h-16 rounded flex-shrink-0">
+                                <div class="flex-grow min-w-0">
+                                    <div class="flex justify-between items-center mb-1">
+                                        <h3 class="font-medium text-gray-200 truncate mr-2">${gameName}</h3>
+                                        <div class="text-sm ${statusColor}"><i class="${statusIconClass}"></i> ${data.status}</div>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2 mb-1">
+                                        <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: ${progressPercent}%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-gray-400">
+                                        <span class="truncate pr-2">${detailsText}</span>
+                                        <span class="flex-shrink-0">${isActive ? `ETA: ${etaText}` : `Elapsed: ${elapsedText}`}</span>
+                                    </div>
+                                </div>
+                                <!-- No individual controls needed here, use global cancel -->
+                            </div>
+                        </div>
+                    `;
+                    downloadQueueList.innerHTML = itemHtml;
+                } else if (data.status === 'idle') {
+                    downloadQueueList.innerHTML = '<p class="text-gray-500 text-center p-4">Download queue is empty.</p>';
+                }
+            } else {
+                console.warn("Element with ID 'download-queue-list' not found.");
+            }
 
             // Update File List
             if (fileListContainer) {
