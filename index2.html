@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Download Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        .sidebar-item.active {
+             background-color: #1e3a8a; /* bg-blue-900 */
+        }
+        .sidebar-item:not(.active):hover {
+             background-color: #1f2937; /* hover:bg-gray-800 */
+        }
+        .tabs button.active {
+            border-bottom: 2px solid #3b82f6;
+            color: #3b82f6;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 10px;
+            background-color: #ef4444;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            min-width: 200px;
+            z-index: 1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-gray-100 min-h-screen">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-900 flex flex-col">
+            <div class="p-4 flex items-center space-x-3 border-b border-gray-700">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam Logo" class="w-8 h-8">
+                <h1 class="text-xl font-bold">Steam Manager</h1>
+            </div>
+
+            <div class="p-4 space-y-1 flex-grow">
+                <a href="#" id="nav-dashboard" class="sidebar-item flex items-center space-x-3 p-2 rounded-lg active">
+                    <i class="fas fa-tachometer-alt w-6"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" id="nav-library" class="sidebar-item flex items-center space-x-3 p-2 rounded-lg">
+                    <i class="fas fa-gamepad w-6"></i>
+                    <span>Game Library</span>
+                </a>
+                <a href="#" id="nav-downloads" class="sidebar-item flex items-center space-x-3 p-2 rounded-lg">
+                    <i class="fas fa-cloud-download-alt w-6"></i>
+                    <span>Downloads</span>
+                    <span class="notification-badge rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                </a>
+                <a href="#" id="nav-settings" class="sidebar-item flex items-center space-x-3 p-2 rounded-lg">
+                    <i class="fas fa-cog w-6"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="#" id="nav-compression" class="sidebar-item flex items-center space-x-3 p-2 rounded-lg">
+                    <i class="fas fa-hdd w-6"></i>
+                    <span>Compression</span>
+                </a>
+            </div>
+
+            <div class="p-4 border-t border-gray-700">
+                <div class="flex items-center space-x-3">
+                    <img src="https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg" alt="User" class="w-10 h-10 rounded-full">
+                    <div>
+                        <div class="font-medium">SteamUser123</div>
+                        <div class="text-xs text-gray-400">Online</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center">
+                <div><!-- Placeholder for potential future elements on the left --></div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search games..." class="bg-gray-700 rounded-full py-2 px-4 pl-10 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+
+                    <div class="dropdown relative">
+                        <button class="p-2 rounded-full hover:bg-gray-700 relative">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                        </button>
+                        <div class="dropdown-content mt-2 bg-gray-800 rounded-md shadow-lg py-1">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-700">New game update available</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-700">Download completed</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown relative">
+                        <button class="flex items-center space-x-2 hover:bg-gray-700 p-2 rounded-md">
+                            <img src="https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg" alt="User" class="w-8 h-8 rounded-full">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="dropdown-content mt-2 bg-gray-800 rounded-md shadow-lg py-1 w-48">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-700">Profile</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-700">Settings</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-700">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- Dashboard Content -->
+                <div id="dashboard-content">
+                    <div class="tabs flex space-x-6 mb-6 border-b border-gray-700 pb-2">
+                        <button class="active pb-1">All Games</button>
+                        <button class="pb-1">Installed</button>
+                        <button class="pb-1">Compressed</button>
+                        <button class="pb-1">Updates</button>
+                    </div>
+                    <!-- Dashboard Overview -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-gray-800 rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-gray-400">Total Games</h3>
+                                    <p class="text-2xl font-bold">127</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-blue-900 bg-opacity-50">
+                                    <i class="fas fa-gamepad text-blue-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-800 rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-gray-400">Disk Space</h3>
+                                    <p class="text-2xl font-bold">1.2TB <span class="text-sm text-gray-400">/ 2TB</span></p>
+                                    <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-full bg-green-900 bg-opacity-50">
+                                    <i class="fas fa-hdd text-green-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-800 rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-gray-400">Active Downloads</h3>
+                                    <p class="text-2xl font-bold">3</p>
+                                    <p class="text-sm text-gray-400">2.4MB/s</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-purple-900 bg-opacity-50">
+                                    <i class="fas fa-cloud-download-alt text-purple-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+                <!-- Downloads Content -->
+                <div id="downloads-content" class="hidden">
+                    <!-- Download Queue -->
+                    <div class="bg-gray-800 rounded-lg shadow mb-6">
+                        <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                            <h2 class="text-lg font-semibold">Download Queue</h2>
+                            <div class="flex space-x-2">
+                                <button class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm flex items-center space-x-1">
+                                    <i class="fas fa-pause"></i>
+                                    <span>Pause All</span>
+                                </button>
+                                <button class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm flex items-center space-x-1">
+                                    <i class="fas fa-play"></i>
+                                    <span>Resume All</span>
+                                </button>
+                                <div class="relative">
+                                    <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
+                                        <option>Max Downloads: 3</option>
+                                        <option>Max Downloads: 2</option>
+                                        <option>Max Downloads: 1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="divide-y divide-gray-700">
+                            <!-- Download Item 1 -->
+                            <div class="p-4 hover:bg-gray-750">
+                                <div class="flex items-center space-x-4">
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game" class="w-16 h-16 rounded">
+                                    <div class="flex-grow">
+                                        <div class="flex justify-between">
+                                            <h3 class="font-medium">Counter-Strike 2</h3>
+                                            <div class="text-sm text-gray-400">2.4MB/s</div>
+                                        </div>
+                                        <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                            <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 45%"></div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                            <span>45% (12.4GB / 27.6GB)</span>
+                                            <span>ETA: 1h 24m</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Download Item 2 -->
+                            <div class="p-4 hover:bg-gray-750">
+                                <div class="flex items-center space-x-4">
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/570/header.jpg" alt="Game" class="w-16 h-16 rounded">
+                                    <div class="flex-grow">
+                                        <div class="flex justify-between">
+                                            <h3 class="font-medium">Dota 2</h3>
+                                            <div class="text-sm text-gray-400">1.8MB/s</div>
+                                        </div>
+                                        <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                            <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 78%"></div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                            <span>78% (21.8GB / 28GB)</span>
+                                            <span>ETA: 32m</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Download Item 3 -->
+                            <div class="p-4 hover:bg-gray-750">
+                                <div class="flex items-center space-x-4">
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg" alt="Game" class="w-16 h-16 rounded">
+                                    <div class="flex-grow">
+                                        <div class="flex justify-between">
+                                            <h3 class="font-medium">PUBG: BATTLEGROUNDS</h3>
+                                            <div class="text-sm text-gray-400">3.1MB/s</div>
+                                        </div>
+                                        <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
+                                            <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: 12%"></div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                            <span>12% (4.8GB / 40GB)</span>
+                                            <span>ETA: 3h 12m</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <button class="p-2 rounded-full hover:bg-gray-700">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Library Content -->
+                <div id="library-content" class="hidden">
+                    <!-- Game Library -->
+                    <div class="bg-gray-800 rounded-lg shadow">
+                        <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                            <h2 class="text-lg font-semibold">Game Library</h2>
+                            <div class="flex space-x-2">
+                                <div class="relative">
+                                    <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
+                                        <option>Sort by: Recently Played</option>
+                                        <option>Sort by: Name</option>
+                                        <option>Sort by: Size</option>
+                                        <option>Sort by: Last Updated</option>
+                                    </select>
+                                </div>
+                                <div class="relative">
+                                    <select class="bg-gray-700 border border-gray-600 text-white text-sm rounded px-3 py-1 focus:outline-none">
+                                        <option>Filter: All Games</option>
+                                        <option>Filter: Installed</option>
+                                        <option>Filter: Compressed</option>
+                                        <option>Filter: Needs Update</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+                            <!-- Game Card 1 -->
+                            <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" alt="Game" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h3 class="font-medium mb-2">The Witcher 3: Wild Hunt</h3>
+                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                        <span>45.6GB</span>
+                                        <span>Compressed</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
+                                            <i class="fas fa-play mr-1"></i> Play
+                                        </button>
+                                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Game Card 2 -->
+                            <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg" alt="Game" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h3 class="font-medium mb-2">Red Dead Redemption 2</h3>
+                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                        <span>120GB</span>
+                                        <span>Installed</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
+                                            <i class="fas fa-play mr-1"></i> Play
+                                        </button>
+                                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Game Card 3 -->
+                            <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg" alt="Game" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h3 class="font-medium mb-2">Baldur's Gate 3</h3>
+                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                        <span>85GB</span>
+                                        <span>Update Available</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
+                                            <i class="fas fa-download mr-1"></i> Update
+                                        </button>
+                                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Game Card 4 -->
+                            <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
+                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg" alt="Game" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <h3 class="font-medium mb-2">ELDEN RING</h3>
+                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                        <span>50GB</span>
+                                        <span>Not Installed</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
+                                            <i class="fas fa-download mr-1"></i> Install
+                                        </button>
+                                        <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Placeholder for Settings Content -->
+                 <div id="settings-content" class="hidden">
+                    <h2 class="text-xl font-semibold mb-4">Settings</h2>
+                    <p>Settings content goes here...</p>
+                 </div>
+                 <!-- Placeholder for Compression Content -->
+                 <div id="compression-content" class="hidden">
+                     <h2 class="text-xl font-semibold mb-4">Compression</h2>
+                    <p>Compression management content goes here...</p>
+                 </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar Navigation Logic
+        const sidebarLinks = document.querySelectorAll('.sidebar-item');
+        const contentSections = {
+            'nav-dashboard': document.getElementById('dashboard-content'),
+            'nav-downloads': document.getElementById('downloads-content'),
+            'nav-library': document.getElementById('library-content'),
+            'nav-settings': document.getElementById('settings-content'),
+            'nav-compression': document.getElementById('compression-content'),
+        };
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default anchor behavior
+
+                // Deactivate all links
+                sidebarLinks.forEach(l => l.classList.remove('active'));
+                // Hide all content sections
+                Object.values(contentSections).forEach(section => section.classList.add('hidden'));
+
+                // Activate the clicked link
+                link.classList.add('active');
+
+                // Show the target content section
+                const targetId = link.id;
+                if (contentSections[targetId]) {
+                    contentSections[targetId].classList.remove('hidden');
+                }
+
+                 // Optional: Update header based on active section (e.g., change title or tabs)
+                 // Example: document.querySelector('header h2').textContent = link.querySelector('span').textContent;
+            });
+        });
+
+        // Top Navigation Tab switching functionality (currently just styles the buttons)
+        // This might be used for filtering within a section later.
+        document.querySelectorAll('.tabs button').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tabs button').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                 // Add logic here later to filter content based on the selected tab (e.g., filter game library)
+            });
+        });
+
+        // Simulate download progress
+        function simulateDownload() {
+            const bars = document.querySelectorAll('.progress-bar');
+            bars.forEach(bar => {
+                // Ensure the bar is visible before trying to update width
+                const downloadItem = bar.closest('.p-4');
+                if (downloadItem && window.getComputedStyle(downloadItem).display !== 'none') {
+                     const currentWidth = parseFloat(bar.style.width) || 0;
+                     if (currentWidth < 100) {
+                        // Make progress random but generally increasing
+                        let increment = Math.random() * 2;
+                        // Occasionally pause or slow down
+                         if (Math.random() < 0.1) increment = 0;
+                         if (Math.random() < 0.2) increment /= 5;
+
+                        let newWidth = Math.min(currentWidth + increment, 100);
+                        bar.style.width = newWidth + '%';
+
+                        // Update percentage text (example - needs actual data binding)
+                        const percentageSpan = bar.parentElement.nextElementSibling.querySelector('span:first-child');
+                        if (percentageSpan) {
+                             // This is just a visual approximation based on width
+                            const totalSizeGB = parseFloat(percentageSpan.textContent.match(/.*\/ ([\d.]+)GB/)?.[1] || '1');
+                            const currentSizeGB = (totalSizeGB * (newWidth / 100)).toFixed(1);
+                            percentageSpan.textContent = `${Math.round(newWidth)}% (${currentSizeGB}GB / ${totalSizeGB}GB)`;
+                        }
+                        // Update ETA (example - needs real calculation)
+                        const etaSpan = bar.parentElement.nextElementSibling.querySelector('span:last-child');
+                         if (etaSpan && currentWidth < 99) { // Don't update ETA if almost done
+                            // Simplified ETA calculation
+                            const remainingPercent = 100 - newWidth;
+                            if (increment > 0.1) { // Only update if progressing reasonably
+                                 const secondsRemaining = Math.max(5, Math.round(remainingPercent / (increment / 2))); // 2 seconds per increment approx
+                                 const minutes = Math.floor(secondsRemaining / 60);
+                                const hours = Math.floor(minutes / 60);
+                                const displayMinutes = minutes % 60;
+                                 if (hours > 0) {
+                                     etaSpan.textContent = `ETA: ${hours}h ${displayMinutes}m`;
+                                 } else if (minutes > 0) {
+                                    etaSpan.textContent = `ETA: ${minutes}m`;
+                                } else {
+                                     etaSpan.textContent = `ETA: <1m`;
+                                 }
+                            } else if (increment === 0 && currentWidth > 0) {
+                                 etaSpan.textContent = `ETA: Paused`;
+                             }
+                        } else if (etaSpan && currentWidth >= 99) {
+                             etaSpan.textContent = `ETA: Finishing...`;
+                         }
+                     } else {
+                         // Handle completion - maybe change style or text
+                         const etaSpan = bar.parentElement.nextElementSibling.querySelector('span:last-child');
+                         if (etaSpan) etaSpan.textContent = 'Completed';
+                         bar.classList.remove('bg-blue-500');
+                         bar.classList.add('bg-green-500'); // Change to green on completion
+                    }
+                }
+            });
+        }
+
+        setInterval(simulateDownload, 2000); // Keep interval at 2 seconds
+
+        // Dropdown menu toggle for mobile (would need more implementation)
+        // Currently works on hover for desktop
+    </script>
+</body>
+</html>
