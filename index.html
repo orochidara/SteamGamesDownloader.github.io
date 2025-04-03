@@ -412,7 +412,7 @@
     <script>
         // --- CONFIGURATION ---
         // PASTE YOUR NGROK URL FROM COLAB OUTPUT HERE (including https://)
-        const BACKEND_BASE_URL = "https://2dd0-35-247-28-195.ngrok-free.app"; // <<< UPDATED HERE!
+        const BACKEND_BASE_URL = "https://1eaf-35-247-28-195.ngrok-free.app"; // <<< UPDATED HERE!
 
         // --- DOM Element References ---
         // Sidebar links (Ensure these IDs match your HTML)
@@ -457,12 +457,14 @@
             const options = {
                 method: method,
                 headers: {
-                     // No Content-Type header needed for GET/HEAD
+                     // Add headers to mimic browser and potentially skip ngrok warning
+                     'ngrok-skip-browser-warning': 'true',
+                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
                 },
                 // Add mode: 'cors' if needed, though Flask-CORS should handle preflights
             };
             if (body) {
-                 options.headers['Content-Type'] = 'application/json';
+                 options.headers['Content-Type'] = 'application/json'; // Add Content-Type only if there's a body
                  options.body = JSON.stringify(body);
             }
 
