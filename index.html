@@ -501,6 +501,10 @@
                     return data;
                 } catch (e) {
                     console.error("Failed to parse JSON response:", e);
+                    // Log the raw response text to see what was actually received
+                    response.text().then(text => {
+                        console.error("Raw response text received by fetch:", text);
+                    });
                     throw new Error("Invalid JSON response from server");
                 }
 
