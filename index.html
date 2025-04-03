@@ -448,7 +448,7 @@
 
         // --- API Call Function ---
         async function apiCall(endpoint, method = 'GET', body = null) {
-            if (!BACKEND_BASE_URL || BACKEND_BASE_URL === "https://4342-34-123-182-47.ngrok-free.app") {
+            if (!BACKEND_BASE_URL || BACKEND_BASE_URL === "free-growing-raven.ngrok-free.app") {
                 console.error("Backend URL not set!");
                 updateStatusDisplay({ status: "error", error_message: "Backend URL not configured in index2.html script." });
                 throw new Error("Backend URL missing.");
