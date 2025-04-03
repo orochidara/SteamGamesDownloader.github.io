@@ -489,17 +489,20 @@
                 }
 
                 // Handle successful file downloads or other non-JSON success
-                if (response.ok && (!contentType || !contentType.includes("application/json"))) {
-                     console.log(`API Success: Received non-JSON response (status ${response.status})`);
-                     // If it was a file download endpoint, the browser handles it via `send_from_directory`
-                     // Otherwise, just return a success indicator
+                if (response.ok && endpoint === '/api/files/') {
+                     console.log(`API Success: File download response (status ${response.status})`);
                      return { success: true, status: response.status };
                 }
 
                 // Process successful JSON response
-                const data = await response.json();
-                console.log("API Success Response:", data);
-                return data;
+                try {
+                    const data = await response.json();
+                    console.log("API Success Response:", data);
+                    return data;
+                } catch (e) {
+                    console.error("Failed to parse JSON response:", e);
+                    throw new Error("Invalid JSON response from server");
+                }
 
             } catch (error) {
                 console.error(`API Fetch Error (${endpoint}):`, error);
