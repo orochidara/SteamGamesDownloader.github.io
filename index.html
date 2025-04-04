@@ -610,17 +610,29 @@
                     const downloadedBytes = data.downloaded_bytes;
                     const totalBytes = data.total_bytes;
                     const speedBps = data.download_speed_bps;
-                    let detailLine1 = detailsText; // Default
-                    let detailLine2 = `ETA: ${etaText}`;
+                    // Default detail lines based on general status or backend string
+                    let detailLine1 = data.progress_details || data.status; // Use backend string as default
+                    let detailLine2 = data.eta && data.eta !== '--:--' ? `ETA: ${data.eta}` : `Elapsed: ${elapsedText}`;
 
-                    if (data.status === 'downloading' && downloadedBytes !== null) {
+                    // If downloading and we have specific byte info, create more detailed lines
+                    if (data.status === 'downloading' && downloadedBytes !== null && downloadedBytes > 0) {
                         const downStr = formatBytes(downloadedBytes);
                         const totalStr = totalBytes ? formatBytes(totalBytes) : 'N/A';
                         const speedStr = speedBps > 0 ? `${formatBytes(speedBps)}/s` : '';
-                        detailLine1 = `${downStr} / ${totalStr}`;
-                        detailLine2 = `${speedStr} | ETA: ${etaText}`;
+                        detailLine1 = `${downStr} / ${totalStr}`; // Overwrite default
+                        // Only show speed if calculated and relevant
+                        detailLine2 = speedStr ? `${speedStr} | ETA: ${etaText}` : `ETA: ${etaText}`; // Overwrite default
                     } else if (data.status === 'compressing' || data.status === 'cleaning') {
-                         detailLine1 = detailsText; // e.g., Compressing (XX%)
+                         // Keep default detailLine1 (e.g., Compressing (XX%))
+                         detailLine2 = `Elapsed: ${elapsedText}`; // Overwrite default
+                    } else if (data.status === 'completed' || data.status === 'completed_uncompressed') {
+                         detailLine1 = data.files && data.files.length > 0 ? `Completed (${data.files.length} file(s))` : 'Completed';
+                         detailLine2 = `Elapsed: ${elapsedText}`;
+                    } else if (data.status === 'error') {
+                         detailLine1 = `Error: ${data.error_message || 'Unknown'}`;
+                         detailLine2 = `Elapsed: ${elapsedText}`;
+                    } else if (data.status === 'cancelled') {
+                         detailLine1 = 'Cancelled';
                          detailLine2 = `Elapsed: ${elapsedText}`;
                     }
                     // --- End detailed progress ---
