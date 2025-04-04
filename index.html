@@ -287,9 +287,9 @@
                 </div>
 
                 <!-- Library Content -->
-                <div id="library-content" class="hidden">
+                <div id="library-content" class="hidden bg-gray-800 rounded-lg shadow">
                 <!-- Game Library -->
-                <div class="bg-gray-800 rounded-lg shadow">
+                <div class="p-4 border-b border-gray-700 flex justify-between items-center">
                     <div class="p-4 border-b border-gray-700 flex justify-between items-center">
                         <h2 class="text-lg font-semibold">Game Library</h2>
                         <div class="flex space-x-2">
@@ -311,89 +311,12 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
-                        <!-- Game Card 1 -->
-                        <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
-                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" alt="Game" class="w-full h-40 object-cover">
-                            <div class="p-4">
-                                <h3 class="font-medium mb-2">The Witcher 3: Wild Hunt</h3>
-                                <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                    <span>45.6GB</span>
-                                    <span>Compressed</span>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
-                                        <i class="fas fa-play mr-1"></i> Play
-                                    </button>
-                                    <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Game Card 2 -->
-                        <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
-                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg" alt="Game" class="w-full h-40 object-cover">
-                            <div class="p-4">
-                                <h3 class="font-medium mb-2">Red Dead Redemption 2</h3>
-                                <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                    <span>120GB</span>
-                                    <span>Installed</span>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
-                                        <i class="fas fa-play mr-1"></i> Play
-                                    </button>
-                                    <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Game Card 3 -->
-                        <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
-                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg" alt="Game" class="w-full h-40 object-cover">
-                            <div class="p-4">
-                                <h3 class="font-medium mb-2">Baldur's Gate 3</h3>
-                                <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                    <span>85GB</span>
-                                    <span>Update Available</span>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
-                                        <i class="fas fa-download mr-1"></i> Update
-                                    </button>
-                                    <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Game Card 4 -->
-                        <div class="game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300">
-                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg" alt="Game" class="w-full h-40 object-cover">
-                            <div class="p-4">
-                                <h3 class="font-medium mb-2">ELDEN RING</h3>
-                                <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                    <span>50GB</span>
-                                    <span>Not Installed</span>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm flex-grow">
-                                        <i class="fas fa-download mr-1"></i> Install
-                                    </button>
-                                    <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                </div>
+                
+                <div id="library-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+                    <!-- Library items will be loaded here -->
+                    <p id="library-loading-msg" class="text-gray-400 col-span-full text-center p-4">Loading library...</p>
+                </div>
                 </div>
                  <!-- Placeholder for Settings Content -->
                  <div id="settings-content" class="hidden">
@@ -426,7 +349,7 @@
     <script>
         // --- CONFIGURATION ---
         // PASTE YOUR NGROK URL FROM COLAB OUTPUT HERE (including https://)
-        const BACKEND_BASE_URL = "https://94e1-35-247-28-195.ngrok-free.app"; // <<< UPDATED HERE!
+        const BACKEND_BASE_URL = "https://8fc6-35-247-28-195.ngrok-free.app"; // <<< UPDATED HERE!
 
         // --- DOM Element References ---
         // Sidebar links (Ensure these IDs match your HTML)
@@ -859,6 +782,10 @@
                      contentSections[targetId].classList.remove('hidden');
                  }
 
+                 // If navigating to Library tab, load library
+                 if (targetId === 'nav-library') {
+                     loadAndDisplayLibrary();
+                 }
                  // If navigating to Compression tab, load settings
                  if (targetId === 'nav-compression') {
                      loadAndDisplaySettings();
@@ -908,6 +835,123 @@
                 console.error("Error loading settings:", error);
                 // Optionally display an error message in the settings UI
             }
+        }
+
+        // --- Library Functions ---
+        async function loadAndDisplayLibrary() {
+            const libraryGrid = document.getElementById('library-grid');
+            const loadingMsg = document.getElementById('library-loading-msg');
+            if (!libraryGrid || !loadingMsg) return;
+
+            loadingMsg.textContent = "Loading library...";
+            loadingMsg.style.display = 'block';
+            libraryGrid.innerHTML = ''; // Clear previous items except loading msg
+            libraryGrid.appendChild(loadingMsg);
+
+            try {
+                console.log("Fetching library...");
+                const libraryItems = await apiCall('/api/library', 'GET');
+
+                if (libraryItems && Array.isArray(libraryItems)) {
+                    loadingMsg.style.display = 'none'; // Hide loading message
+                    if (libraryItems.length === 0) {
+                         libraryGrid.innerHTML = '<p class="text-gray-400 col-span-full text-center p-4">Library is empty. Download games via the Downloads tab.</p>';
+                         return;
+                    }
+
+                    libraryItems.forEach(item => {
+                        const card = createLibraryCard(item);
+                        libraryGrid.appendChild(card);
+                    });
+
+                } else {
+                    loadingMsg.textContent = "Failed to load library data.";
+                    console.warn("Failed to fetch or parse library data.", libraryItems);
+                }
+
+            } catch (error) {
+                loadingMsg.textContent = "Error loading library.";
+                console.error("Error loading library:", error);
+            }
+        }
+
+        function createLibraryCard(item) {
+             // Basic card structure - enhance with real images/data later
+             const div = document.createElement('div');
+             div.className = 'game-card bg-gray-750 rounded-lg overflow-hidden shadow transition duration-300';
+             const imageUrl = `https://via.placeholder.com/300x140/1a1a2e/ffffff?text=App+${item.app_id}`;
+
+             let statusText = item.status.charAt(0).toUpperCase() + item.status.slice(1); // Capitalize
+             let statusColor = 'text-gray-400';
+             let canCompress = false;
+
+             if (item.status === 'downloaded') {
+                 statusText = 'Ready to Compress';
+                 statusColor = 'text-blue-400';
+                 canCompress = true; // Check COMPRESSION_ENABLED from settings later if needed
+             } else if (item.status === 'compressing') {
+                 statusText = 'Compressing...';
+                 statusColor = 'text-purple-400';
+             } else if (item.status === 'compressed') {
+                 statusText = 'Compressed';
+                 statusColor = 'text-green-400';
+             } else if (item.status === 'error') {
+                 statusText = 'Error';
+                 statusColor = 'text-red-400';
+             }
+
+             div.innerHTML = `
+                 <img src="${imageUrl}" alt="Game ${item.app_id}" class="w-full h-36 object-cover">
+                 <div class="p-4">
+                     <h3 class="font-medium mb-2">App ID: ${item.app_id}</h3>
+                     <div class="flex justify-between text-sm ${statusColor} mb-3">
+                         <span>${statusText}</span>
+                         <!-- Add size info later if available -->
+                     </div>
+                     <div class="flex space-x-2">
+                         ${canCompress ? 
+                             `<button class="compress-button bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded text-sm flex-grow" data-appid="${item.app_id}">
+                                 <i class="fas fa-file-archive mr-1"></i> Compress
+                              </button>` : 
+                             `<button class="bg-gray-600 px-3 py-1 rounded text-sm flex-grow cursor-not-allowed" disabled>
+                                  ${item.status === 'compressed' ? '<i class="fas fa-check mr-1"></i> Compressed' : 'Not Ready'}
+                              </button>`
+                         }
+                         <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded" title="More Options (Not Implemented)">
+                             <i class="fas fa-ellipsis-h"></i>
+                         </button>
+                     </div>
+                 </div>
+             `;
+
+             // Add event listener for compress button
+             const compressButton = div.querySelector('.compress-button');
+             if (compressButton) {
+                 compressButton.addEventListener('click', async (event) => {
+                     const appId = event.currentTarget.dataset.appid;
+                     console.log(`Compress button clicked for App ID: ${appId}`);
+                     event.currentTarget.disabled = true;
+                     event.currentTarget.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Starting...';
+                     
+                     try {
+                         const result = await apiCall('/api/compress_game', 'POST', { app_id: appId });
+                         console.log("Compress API call success:", result);
+                         // Update library item status visually immediately (optional)
+                         const statusSpan = div.querySelector('.text-sm span');
+                         if (statusSpan) statusSpan.textContent = 'Compressing...';
+                         // Start polling for main status (compression progress)
+                         startStatusPolling(); 
+                         // TODO: Optionally refresh library view after a delay or when status updates?
+                     } catch (error) {
+                         console.error(`Failed to start compression for ${appId}:`, error);
+                         event.currentTarget.disabled = false;
+                         event.currentTarget.innerHTML = '<i class="fas fa-file-archive mr-1"></i> Compress';
+                         alert(`Error starting compression: ${error.message}`);
+                     }
+                 });
+             }
+
+             return div;
         }
 
     </script>
