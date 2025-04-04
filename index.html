@@ -401,10 +401,24 @@
                     <p>Settings content goes here...</p>
                  </div>
                  <!-- Placeholder for Compression Content -->
-                 <div id="compression-content" class="hidden">
-                     <h2 class="text-xl font-semibold mb-4">Compression</h2>
-                    <p>Compression management content goes here...</p>
-                </div>
+                 <div id="compression-content" class="hidden p-6 bg-gray-800 rounded-lg shadow">
+                     <h2 class="text-xl font-semibold mb-6">Compression Settings</h2>
+
+                     <div class="space-y-4">
+                         <div class="flex items-center">
+                             <input id="compression-enabled-checkbox" type="checkbox" disabled class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2 cursor-not-allowed">
+                             <label for="compression-enabled-checkbox" class="ml-2 text-sm font-medium text-gray-300">Enable Compression After Download</label>
+                         </div>
+
+                         <div class="flex items-center">
+                              <label for="compression-chunk-size" class="block mr-3 text-sm font-medium text-gray-400">Chunk Size (GB):</label>
+                              <input type="number" id="compression-chunk-size" readonly class="bg-gray-700 border border-gray-600 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-24 p-2.5 cursor-not-allowed" placeholder="4">
+                         </div>
+
+                          <p class="text-xs text-gray-500">Note: Settings are read from the backend when it starts. Changes here require a backend restart.</p>
+                          <!-- Add Save button here later if implementing Step 2 -->
+                     </div>
+                 </div>
             </main>
         </div>
     </div>
@@ -412,7 +426,7 @@
     <script>
         // --- CONFIGURATION ---
         // PASTE YOUR NGROK URL FROM COLAB OUTPUT HERE (including https://)
-        const BACKEND_BASE_URL = "https://944c-35-247-28-195.ngrok-free.app"; // <<< UPDATED HERE!
+        const BACKEND_BASE_URL = "https://94e1-35-247-28-195.ngrok-free.app"; // <<< UPDATED HERE!
 
         // --- DOM Element References ---
         // Sidebar links (Ensure these IDs match your HTML)
@@ -844,6 +858,11 @@
                  if (contentSections[targetId]) {
                      contentSections[targetId].classList.remove('hidden');
                  }
+
+                 // If navigating to Compression tab, load settings
+                 if (targetId === 'nav-compression') {
+                     loadAndDisplaySettings();
+                 }
              });
          });
 
@@ -869,6 +888,26 @@
             });
             // Initial state
             credsSection.style.display = anonCheckbox.checked ? 'none' : 'block';
+        }
+
+        // Function to fetch and display settings
+        async function loadAndDisplaySettings() {
+            try {
+                console.log("Fetching compression settings...");
+                const settings = await apiCall('/api/settings', 'GET');
+                if (settings) {
+                    const enabledCheckbox = document.getElementById('compression-enabled-checkbox');
+                    const chunkSizeInput = document.getElementById('compression-chunk-size');
+                    if (enabledCheckbox) enabledCheckbox.checked = settings.compression_enabled;
+                    if (chunkSizeInput) chunkSizeInput.value = settings.compression_chunk_size_gb;
+                    console.log("Settings displayed:", settings);
+                } else {
+                     console.warn("Failed to fetch or parse settings.");
+                }
+            } catch (error) {
+                console.error("Error loading settings:", error);
+                // Optionally display an error message in the settings UI
+            }
         }
 
     </script>
