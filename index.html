@@ -412,7 +412,7 @@
     <script>
         // --- CONFIGURATION ---
         // PASTE YOUR NGROK URL FROM COLAB OUTPUT HERE (including https://)
-        const BACKEND_BASE_URL = "https://f140-35-247-28-195.ngrok-free.app"; // <<< UPDATED HERE!
+        const BACKEND_BASE_URL = "https://8c5f-35-247-28-195.ngrok-free.app"; // <<< UPDATED HERE!
 
         // --- DOM Element References ---
         // Sidebar links (Ensure these IDs match your HTML)
@@ -520,6 +520,19 @@
             }
         }
 
+        // --- Utility Functions ---
+        function formatBytes(bytes, decimals = 2) {
+            if (!+bytes) return '0 Bytes'; // Handle 0 or invalid input
+
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+        }
+
         // --- UI Update Function ---
         function updateStatusDisplay(data) {
             // Update Status Text
@@ -593,6 +606,25 @@
                     let statusIconClass = 'fas fa-spinner fa-spin'; // Default: spinning
                     let statusColor = 'text-blue-400';
 
+                    // --- Get detailed progress data ---
+                    const downloadedBytes = data.downloaded_bytes;
+                    const totalBytes = data.total_bytes;
+                    const speedBps = data.download_speed_bps;
+                    let detailLine1 = detailsText; // Default
+                    let detailLine2 = `ETA: ${etaText}`;
+
+                    if (data.status === 'downloading' && downloadedBytes !== null) {
+                        const downStr = formatBytes(downloadedBytes);
+                        const totalStr = totalBytes ? formatBytes(totalBytes) : 'N/A';
+                        const speedStr = speedBps > 0 ? `${formatBytes(speedBps)}/s` : '';
+                        detailLine1 = `${downStr} / ${totalStr}`;
+                        detailLine2 = `${speedStr} | ETA: ${etaText}`;
+                    } else if (data.status === 'compressing' || data.status === 'cleaning') {
+                         detailLine1 = detailsText; // e.g., Compressing (XX%)
+                         detailLine2 = `Elapsed: ${elapsedText}`;
+                    }
+                    // --- End detailed progress ---
+
                     if (data.status === 'downloading') {
                         statusIconClass = 'fas fa-cloud-download-alt';
                     } else if (data.status === 'compressing') {
@@ -631,8 +663,8 @@
                                         <div class="bg-blue-500 h-2 rounded-full progress-bar" style="width: ${progressPercent}%"></div>
                                     </div>
                                     <div class="flex justify-between text-xs text-gray-400">
-                                        <span class="truncate pr-2">${detailsText}</span>
-                                        <span class="flex-shrink-0">${isActive ? `ETA: ${etaText}` : `Elapsed: ${elapsedText}`}</span>
+                                        <span class="truncate pr-2">${detailLine1}</span>
+                                        <span class="flex-shrink-0">${detailLine2}</span>
                                     </div>
                                 </div>
                                 <!-- No individual controls needed here, use global cancel -->
